@@ -198,7 +198,7 @@ bool MyProxy::SetUpServerSocket() {
     addrinfo hints, *result;
 
     memset(&hints, 0, sizeof(addrinfo));
-    hints.ai_family = AF_UNSPEC;
+    hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
 
