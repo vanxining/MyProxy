@@ -6,17 +6,18 @@ solution "MyProxy"
     project "MyProxy"
         kind "ConsoleApp"
         language "C++"
-        flags "Unicode"
+        cppdialect "C++11"
+        characterset "Unicode"
 
         files { "../*.h", "../*.hpp", "../*.cpp" }
         vpaths {
-           ["Headers"] = { "../*.h", "../*.hpp", },
-           ["Sources"] = "../*.cpp",
+            ["Headers"] = { "../*.h", "../*.hpp", },
+            ["Sources"] = "../*.cpp",
         }
 
         filter "configurations:Debug"
             defines { "_DEBUG", "DEBUG" }
-            flags { "Symbols" }
+            symbols "On"
 
         filter "configurations:Release"
             defines { "NDEBUG" }

@@ -1,0 +1,7 @@
+{
+  // The default character set encoding to use when reading and writing files. This setting can be configured per language too.
+  "files.encoding": "gb2312",
+  "files.associations": {
+    "string": "cpp"
+  }
+}

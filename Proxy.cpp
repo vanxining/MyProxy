@@ -1,4 +1,3 @@
-
 #include "Proxy.hpp"
 #include "DNSCache.hpp"
 
@@ -103,7 +102,7 @@ void MyProxy::PrintRequest(Logger::OutputLevel level) const {
     Log(string(m_vbuf.data(), strchr(m_vbuf.data(), '\r')), level);
 }
 
-MyProxy::Statistics MyProxy::GetStatistics() {
+const MyProxy::Statistics &MyProxy::GetStatistics() {
     return ms_stat;
 }
 

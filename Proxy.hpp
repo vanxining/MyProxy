@@ -1,4 +1,3 @@
-
 #pragma once
 #include "Logger.hpp"
 #include "ws-util.h"
@@ -40,7 +39,7 @@ public:
     };
 
     /// 获取统计信息
-    static Statistics GetStatistics();
+    static const Statistics &GetStatistics();
 
 private:
 

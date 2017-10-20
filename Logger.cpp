@@ -1,4 +1,3 @@
-
 #include "Logger.hpp"
 #include <mutex>
 #include <sstream>

@@ -29,17 +29,16 @@ using namespace std;
 // items.
 static struct ErrorEntry {
     int nID;
-    const char* pcMessage;
+    const char *pcMessage;
 
-    ErrorEntry(int id, const char* pc = 0) : 
+    ErrorEntry(int id, const char *pc = 0) :
         nID(id), 
-        pcMessage(pc)  {}
+        pcMessage(pc) {}
 
-    bool operator<(const ErrorEntry& rhs) const
-    {
+    bool operator<(const ErrorEntry& rhs) const {
         return nID < rhs.nID;
     }
-} gaErrorList[] = {
+} g_ErrorList[] = {
     ErrorEntry(0,                  "No error"),
     ErrorEntry(WSAEINTR,           "Interrupted system call"),
     ErrorEntry(WSAEBADF,           "Bad file number"),
@@ -91,7 +90,7 @@ static struct ErrorEntry {
     ErrorEntry(WSAHOST_NOT_FOUND,  "Host not found"),
     ErrorEntry(WSANO_DATA,         "No host data of that type was found")
 };
-const int kNumMessages = sizeof(gaErrorList) / sizeof(ErrorEntry);
+const int kNumMessages = sizeof(g_ErrorList) / sizeof(ErrorEntry);
 
 
 //// WSAGetLastErrorMessage ////////////////////////////////////////////
@@ -105,18 +104,17 @@ const int kNumMessages = sizeof(gaErrorList) / sizeof(ErrorEntry);
 // must copy the data from this function before you call it again.  It
 // follows that this function is also not thread-safe.
 
-string WSAGetLastErrorMessage(const char* pcMessagePrefix, int nErrorID)
-{
+string WSAGetLastErrorMessage(const char *pcMessagePrefix, int nErrorID) {
     // Build basic error string
     ostringstream ss;
     ss << pcMessagePrefix << ": ";
 
     // Tack appropriate canned message onto end of supplied message 
-    // prefix. Note that we do a binary search here: gaErrorList must be
+    // prefix. Note that we do a binary search here: g_ErrorList must be
 	// sorted by the error constant's value.
-	ErrorEntry* pEnd = gaErrorList + kNumMessages;
+	ErrorEntry *pEnd = g_ErrorList + kNumMessages;
     ErrorEntry Target(nErrorID ? nErrorID : WSAGetLastError());
-    ErrorEntry* it = lower_bound(gaErrorList, pEnd, Target);
+    ErrorEntry *it = lower_bound(g_ErrorList, pEnd, Target);
     if ((it != pEnd) && (it->nID == Target.nID)) {
         ss << it->pcMessage;
     }
@@ -135,8 +133,7 @@ string WSAGetLastErrorMessage(const char* pcMessagePrefix, int nErrorID)
 // Gracefully shuts the connection sd down.  Returns true if we're
 // successful, false otherwise.
 
-bool ShutdownConnection(SOCKET sd, bool rx)
-{
+bool ShutdownConnection(SOCKET sd, bool rx) {
     // Disallow any further data sends.  This will tell the other side
     // that we want to go away now.  If we skip this step, we don't
     // shut the connection down nicely.
@@ -190,4 +187,3 @@ bool ShutdownConnection(SOCKET sd, bool rx)
 
     return true;
 }
-
